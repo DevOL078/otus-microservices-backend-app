@@ -1,2 +1,14 @@
-spring.application.name: backend-app
 server.port: 8000
+
+spring:
+  application.name: backend-app
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/backend-app
+    username: postgres
+    password: password
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: validate
+  liquibase.enabled: true
