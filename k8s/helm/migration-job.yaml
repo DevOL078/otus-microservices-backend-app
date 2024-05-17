@@ -1,0 +1,28 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: backend-migration-job
+  namespace: default
+  labels:
+    app: backend-migration-job
+  annotations:
+    "helm.sh/hook": pre-install,pre-upgrade
+    "helm.sh/hook-weight": "-1"
+    "helm.sh/hook-delete-policy": before-hook-creation
+spec:
+  template:
+    spec:
+      containers:
+        - name: backend-migration
+          image: dmoleynik0307/backend-migration
+          env:
+            - name: LIQUIBASE_COMMAND_URL
+              value: "jdbc:postgresql://postgresql:5432/backend-app"
+            - name: LIQUIBASE_COMMAND_USERNAME
+              value: "backend"
+            - name: LIQUIBASE_COMMAND_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgresql-db-pass
+                  key: password
+      restartPolicy: Never

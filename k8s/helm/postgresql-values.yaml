@@ -2,5 +2,6 @@ global:
   postgresql:
     auth:
       username: backend
-      password: vdOX2We5DCSpeGo9
       database: backend-app
+      existingSecret: postgresql-db-pass
+      secretKeys.userPasswordKey: password

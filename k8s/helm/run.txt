@@ -1,0 +1,5 @@
+kubectl create secret generic postgresql-db-pass --from-literal=password='vdOX2We5DCSpeGo9' --from-literal=postgres-password='xcNftqO2Q2THMv6C'
+
+helm install postgresql oci://registry-1.docker.io/bitnamicharts/postgresql -f postgresql-values.yaml
+
+kubectl port-forward svc/postgresql 5432:5432
