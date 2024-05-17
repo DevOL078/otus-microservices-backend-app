@@ -1,0 +1,6 @@
+global:
+  postgresql:
+    auth:
+      username: backend
+      password: vdOX2We5DCSpeGo9
+      database: backend-app
