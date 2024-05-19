@@ -5,10 +5,10 @@ spring:
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/backend-app
-    username: postgres
-    password: password
+    username: backend
+    password: "vdOX2We5DCSpeGo9"
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       ddl-auto: validate
-  liquibase.enabled: true
+  liquibase.enabled: false
