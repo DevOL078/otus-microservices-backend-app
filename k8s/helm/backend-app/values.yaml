@@ -1,0 +1,58 @@
+replicaCount: 2
+
+image:
+  repository: dmoleynik0307/backend-app
+  pullPolicy: IfNotPresent
+  tag: 1.0.0
+
+podLabels: { }
+
+service:
+  type: ClusterIP
+  targetPort: 8000
+  port: 80
+
+ingress:
+  enabled: true
+  className: nginx
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+  hosts:
+    - host: arch.homework
+      paths:
+        - path: /(otusapp/.+/|)(.*)
+          pathType: ImplementationSpecific
+
+configMap:
+  db_url: "jdbc:postgresql://postgresql:5432/backend-app"
+  db_username: "backend"
+
+env:
+  - name: SPRING_DATASOURCE_URL
+    valueFrom:
+      configMapKeyRef:
+        name: backend-app
+        key: db-url
+  - name: SPRING_DATASOURCE_USERNAME
+    valueFrom:
+      configMapKeyRef:
+        name: backend-app
+        key: db-username
+  - name: SPRING_DATASOURCE_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: postgresql-db-pass
+        key: password
+
+livenessProbe:
+  tcpSocket:
+    port: 8000
+  initialDelaySeconds: 15
+  periodSeconds: 10
+readinessProbe:
+  httpGet:
+    path: /health
+    port: 8000
+  initialDelaySeconds: 15
+  periodSeconds: 10
