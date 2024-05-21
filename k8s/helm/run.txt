@@ -4,4 +4,6 @@ helm install postgresql oci://registry-1.docker.io/bitnamicharts/postgresql -f p
 
 helm upgrade --install backend-app ./backend-app
 
+minikube tunnel
+
 newman run otus_user_pm_collection.json
