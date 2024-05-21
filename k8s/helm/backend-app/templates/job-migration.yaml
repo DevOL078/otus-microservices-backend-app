@@ -1,0 +1,22 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Values.migrationJob.name }}
+  namespace: {{ .Values.migrationJob.namespace }}
+  labels:
+    {{- toYaml .Values.migrationJob.labels | nindent 4 }}
+  {{- with .Values.migrationJob.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  template:
+    spec:
+      containers:
+        - name: {{ .Values.migrationJob.spec.containerName }}
+          image: {{ .Values.migrationJob.spec.image }}
+          {{- with .Values.migrationJob.spec.env }}
+          env:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+      restartPolicy: {{ .Values.migrationJob.spec.restartPolicy }}

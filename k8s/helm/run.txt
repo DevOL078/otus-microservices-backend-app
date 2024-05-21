@@ -2,6 +2,6 @@ kubectl create secret generic postgresql-db-pass --from-literal=password='vdOX2W
 
 helm install postgresql oci://registry-1.docker.io/bitnamicharts/postgresql -f postgresql-values.yaml
 
--- kubectl port-forward svc/postgresql 5432:5432
-
 helm upgrade --install backend-app ./backend-app
+
+newman run otus_user_pm_collection.json
