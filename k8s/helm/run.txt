@@ -7,3 +7,11 @@ helm upgrade --install backend-app ./backend-app
 minikube tunnel
 
 newman run otus_user_pm_collection.json
+
+
+Grafana:
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo update
+helm install prom-stack prometheus-community/kube-prometheus-stack -f prom/prometheus.yaml
+
+kubectl port-forward svc/prom-stack-grafana 9000:80
