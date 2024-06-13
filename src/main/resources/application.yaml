@@ -6,9 +6,17 @@ spring:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/backend-app
     username: postgres
-    password: postgres
+    password: xcNftqO2Q2THMv6C
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       ddl-auto: validate
   liquibase.enabled: false
+
+management:
+  endpoints.web.exposure.include: "prometheus,health"
+  endpoint.health.show-details: always
+  metrics:
+    export:
+      prometheus:
+        enabled: true
