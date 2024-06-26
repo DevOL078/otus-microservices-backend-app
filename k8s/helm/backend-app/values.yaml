@@ -3,7 +3,7 @@ replicaCount: 2
 image:
   repository: dmoleynik0307/backend-app
   pullPolicy: IfNotPresent
-  tag: 1.0.0
+  tag: 1.0.1
 
 podLabels: { }
 
@@ -23,6 +23,7 @@ ingress:
       paths:
         - path: /(otusapp/.+/|)(.*)
           pathType: ImplementationSpecific
+          servicePortName: http
 
 env:
   - name: SPRING_DATASOURCE_URL
@@ -68,6 +69,14 @@ migrationJob:
 configMap:
   db_url: "jdbc:postgresql://postgresql:5432/backend-app"
   db_username: "backend"
+
+serviceMonitor:
+  endpoints:
+    - port: http
+      scrapeTimeout: 30s
+      path: /actuator/prometheus
+      honorLabels: true
+      scheme: http
 
 livenessProbe:
   tcpSocket:
