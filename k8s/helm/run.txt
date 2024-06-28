@@ -1,3 +1,5 @@
+helm upgrade --install nginx ingress-nginx/ingress-nginx --namespace otus -f ./nginx_ingress.yaml
+
 kubectl create secret generic postgresql-db-pass --from-literal=password='vdOX2We5DCSpeGo9' --from-literal=postgres-password='xcNftqO2Q2THMv6C'
 
 helm install postgresql oci://registry-1.docker.io/bitnamicharts/postgresql -f postgresql-values.yaml
@@ -21,4 +23,8 @@ Metrics:
 sum(rate(http_server_requests_seconds_bucket{ status=~"2..", uri=~"/user/.*"}[1m])) by (le))
 2. RPS
 sum by(method, uri) (rate(http_server_requests_seconds_count{container="backend-app", uri=~"/user/.*"}[1m]))
-TODO: обновить сервис в minikube, чтобы подятнулись метрики для latency
+3. Error rate
+sum by(pod) (idelta(http_server_requests_seconds_count{container="backend-app", uri=~"/user/.*", status=~"5.."}[1m]))
+
+Ingress:
+nginx_ingress_controller_requests (TODO)
