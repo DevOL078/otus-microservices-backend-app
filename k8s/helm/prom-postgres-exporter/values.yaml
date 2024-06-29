@@ -1,0 +1,13 @@
+serviceMonitor:
+  enabled: true
+
+config:
+  datasource:
+    host: postgresql
+    port: "5432"
+    user: "prom_monitor"
+    password: "monitor-password"
+    database: backend-app
+
+  disableDefaultMetrics: true
+  disableSettingsMetrics: true

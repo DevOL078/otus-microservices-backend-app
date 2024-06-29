@@ -10,6 +10,16 @@ minikube tunnel
 
 newman run otus_user_pm_collection.json
 
+Postgres exporter:
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo update
+helm install postgres-exporter prometheus-community/prometheus-postgres-exporter -f values.yaml
+
+Creating PostgreSQL user for monitoring:
+winpty kubectl exec -it postgresql-0 -- bash
+psql postgresql://localhost:5432/backend-app -U postgres
+>> create user prom_monitor with password 'monitor-password';
+>> grant pg_monitor to prom_monitor;
 
 Grafana:
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
