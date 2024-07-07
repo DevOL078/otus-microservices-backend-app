@@ -9,7 +9,6 @@ import ru.oleynik.otus.backend.app.domain.model.User
 import ru.oleynik.otus.backend.app.service.UserService
 
 @RestController
-@RequestMapping("/user")
 class UserController(
     private val userService: UserService
 ) {
