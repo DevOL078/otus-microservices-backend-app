@@ -2,6 +2,7 @@ package ru.oleynik.otus.backend.app.controller
 
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.web.bind.annotation.*
 import ru.oleynik.otus.backend.app.controller.dto.UserRequest
 import ru.oleynik.otus.backend.app.controller.dto.UserResponse
@@ -10,7 +11,8 @@ import ru.oleynik.otus.backend.app.service.UserService
 
 @RestController
 class UserController(
-    private val userService: UserService
+    private val userService: UserService,
+    private val bCryptPasswordEncoder: BCryptPasswordEncoder,
 ) {
 
     @PostMapping
@@ -26,6 +28,14 @@ class UserController(
     @GetMapping("/{userId}")
     fun getById(@PathVariable userId: Long): UserResponse {
         return map(userService.getById(userId))
+    }
+
+    @GetMapping("/search")
+    fun search(@RequestParam("login") login: String,
+               @RequestParam("password") password: String): List<UserResponse> {
+        return userService.searchByLogin(login)
+            .filter { bCryptPasswordEncoder.matches(password, it.encryptedPassword) }
+            .map { map(it) }
     }
 
     @DeleteMapping("/{userId}")
@@ -49,6 +59,7 @@ class UserController(
 
     private fun editUser(request: UserRequest, entity: User) {
         entity.username = request.username
+        entity.encryptedPassword = bCryptPasswordEncoder.encode(request.password)
         entity.firstName = request.firstName
         entity.lastName = request.lastName
         entity.phone = request.phone

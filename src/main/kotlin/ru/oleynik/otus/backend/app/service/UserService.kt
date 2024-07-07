@@ -18,4 +18,8 @@ class UserService(
         repository.deleteById(id)
     }
 
+    fun searchByLogin(login: String): List<User> {
+        return repository.findByUsername(login)
+    }
+
 }

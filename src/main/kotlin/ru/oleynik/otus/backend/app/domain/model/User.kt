@@ -10,6 +10,7 @@ data class User(
     @SequenceGenerator(name = "users-seq", sequenceName = "users_id_seq", allocationSize = 1)
     var id: Long? = null,
     var username: String = "",
+    var encryptedPassword: String = "",
     var firstName: String? = null,
     var lastName: String? = null,
     var email: String? = null,
