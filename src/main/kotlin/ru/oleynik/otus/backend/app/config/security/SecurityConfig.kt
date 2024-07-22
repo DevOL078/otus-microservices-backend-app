@@ -36,8 +36,7 @@ class SecurityConfig(
             .authorizeHttpRequests {
                 it
                     .requestMatchers("/health").permitAll()
-                    .requestMatchers("/**", "POST").permitAll()
-                    .requestMatchers("/search", "GET").permitAll()
+                    .requestMatchers("/auth").permitAll()
                     .anyRequest().authenticated()
             }
             .sessionManagement {

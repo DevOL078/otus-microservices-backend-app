@@ -13,6 +13,19 @@ spring:
       ddl-auto: validate
   liquibase.enabled: false
 
+auth.jwt:
+  public-key: |
+    -----BEGIN PUBLIC KEY-----
+    MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA2r3huUuj/OSWatUddDS7
+    q1qRrj/hWuImTpk8prJEf39Z4UeX1S+hXZXr/NP0kIEB2KVM+wcDMIdAINI6CIuY
+    wcOtHtFM0UVfYVP1OWQrgFTmb5tpe4LzkgqWXleTqqrjBLbAyAHJeQA+CVueUkip
+    6tOKtDwsc+jlbzUs0O5IAiaNXd047nsVwGYRFslxq2XV5pshUuPk9DQUWE1dmEh6
+    HlTUGhyTI9ufaIEkKBGfPt+PaNNneZvBcL9eM3nWmj9pV281JkMT4+grCBSIrhAW
+    3ECrNgViwTxq0U8HKkr6hN8WytsYU/t4/74x8GUMbh3DET5JGcVoKW+FIAueU4Lh
+    iQIDAQAB
+    -----END PUBLIC KEY-----
+
+
 management:
   endpoints.web.exposure.include: "prometheus,health"
   endpoint.health.show-details: always
