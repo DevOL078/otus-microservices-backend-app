@@ -7,10 +7,10 @@ import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.web.bind.annotation.*
 import ru.oleynik.otus.backend.app.config.security.UserInfo
-import ru.oleynik.otus.backend.app.controller.UserMapper.toResponse
-import ru.oleynik.otus.backend.app.controller.UserMapper.update
 import ru.oleynik.otus.backend.app.controller.dto.UserRequest
 import ru.oleynik.otus.backend.app.controller.dto.UserResponse
+import ru.oleynik.otus.backend.app.controller.mapper.UserMapper.toResponse
+import ru.oleynik.otus.backend.app.controller.mapper.UserMapper.update
 import ru.oleynik.otus.backend.app.service.UserService
 
 @RestController
@@ -23,11 +23,14 @@ class ProfileController(
     @GetMapping("/{userId}")
     fun getById(@PathVariable userId: Long): UserResponse {
         checkAccess(userId)
+
         return userService.getById(userId).toResponse()
     }
 
     @DeleteMapping("/{userId}")
     fun delete(@PathVariable userId: Long): ResponseEntity<Any> {
+        checkAccess(userId)
+
         userService.delete(userId)
         return ResponseEntity.status(HttpStatus.NO_CONTENT)
             .build()
@@ -36,10 +39,12 @@ class ProfileController(
     @PutMapping("/{userId}")
     fun edit(@PathVariable userId: Long,
              @RequestBody body: UserRequest): ResponseEntity<Any> {
+        checkAccess(userId)
+
         val user = userService.getById(userId)
         user.update(body, bCryptPasswordEncoder)
 
-        val saved = userService.save(user)
+        userService.save(user)
 
         return ResponseEntity.ok()
             .build()

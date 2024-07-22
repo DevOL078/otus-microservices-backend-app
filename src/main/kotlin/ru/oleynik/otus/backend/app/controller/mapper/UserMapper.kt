@@ -1,4 +1,4 @@
-package ru.oleynik.otus.backend.app.controller
+package ru.oleynik.otus.backend.app.controller.mapper
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import ru.oleynik.otus.backend.app.controller.dto.UserRequest

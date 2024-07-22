@@ -44,10 +44,12 @@ class AuthFilter(
                 filterChain.doFilter(request, response)
             } else {
                 response.status = HttpStatus.FORBIDDEN.value()
+                response.outputStream.print("invalid token")
                 return
             }
         } catch (e: Exception) {
             response.status = HttpStatus.UNAUTHORIZED.value()
+            response.outputStream.print(e.message)
             return
         }
     }
