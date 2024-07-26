@@ -58,8 +58,10 @@ migrationJob:
     restartPolicy: Never
 
 configMap:
-  db-url: "jdbc:postgresql://postgresql:5432/backend-app"
-  db-username: "backend"
+  enabled: false
+  props:
+    db-url: "jdbc:postgresql://postgresql:5432/backend-app"
+    db-username: "backend"
 
 serviceMonitor:
   endpoints:
