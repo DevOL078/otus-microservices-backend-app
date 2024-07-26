@@ -3,7 +3,7 @@ replicaCount: 2
 image:
   repository: dmoleynik0307/backend-app
   pullPolicy: IfNotPresent
-  tag: 1.0.2
+  tag: 2.0.0
 
 podLabels: { }
 
@@ -43,6 +43,7 @@ env:
         key: password
 
 migrationJob:
+  enabled: true
   name: backend-migration
   namespace: default
   labels:
@@ -53,7 +54,7 @@ migrationJob:
     "helm.sh/hook-delete-policy": before-hook-creation
   spec:
     containerName: backend-migration
-    image: dmoleynik0307/backend-migration
+    image: dmoleynik0307/backend-migration:2.0.0
     env:
       - name: LIQUIBASE_COMMAND_URL
         value: "jdbc:postgresql://postgresql:5432/backend-app"
@@ -67,8 +68,8 @@ migrationJob:
     restartPolicy: Never
 
 configMap:
-  db_url: "jdbc:postgresql://postgresql:5432/backend-app"
-  db_username: "backend"
+  db-url: "jdbc:postgresql://postgresql:5432/backend-app"
+  db-username: "backend"
 
 serviceMonitor:
   endpoints:

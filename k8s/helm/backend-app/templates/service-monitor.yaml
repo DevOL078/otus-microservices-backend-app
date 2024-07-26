@@ -1,10 +1,10 @@
-{{- $fullName := include "backend-app.fullname" . -}}
+{{- $fullName := include "app.fullname" . -}}
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: {{ $fullName }}
   labels:
-    {{- include "backend-app.labels" . | nindent 4 }}
+    {{- include "app.labels" . | nindent 4 }}
 
 spec:
   {{- with .Values.serviceMonitor.endpoints }}
@@ -13,4 +13,4 @@ spec:
   {{- end }}
   selector:
     matchLabels:
-      {{- include "backend-app.selectorLabels" . | nindent 6 }}
+      {{- include "app.selectorLabels" . | nindent 6 }}
