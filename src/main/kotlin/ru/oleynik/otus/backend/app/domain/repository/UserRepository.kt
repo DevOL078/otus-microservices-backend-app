@@ -5,6 +5,6 @@ import ru.oleynik.otus.backend.app.domain.model.User
 
 interface UserRepository : JpaRepository<User, Long> {
 
-    fun findByUsername(username: String): List<User>
+    fun findByUsername(username: String): User?
 
 }

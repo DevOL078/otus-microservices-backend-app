@@ -9,6 +9,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
+import java.util.regex.Pattern
 
 @Component
 class AuthFilter(
@@ -55,13 +56,14 @@ class AuthFilter(
     }
 
     override fun shouldNotFilter(request: HttpServletRequest): Boolean {
-        return EXCLUDE_URLS.contains(request.requestURI)
+        return EXCLUDE_URLS.stream()
+            .anyMatch { Pattern.matches(it, request.requestURI) }
     }
 
     private companion object {
         const val AUTHORIZATION_HEADER = "Authorization"
         const val BEARER_PREFIX = "Bearer"
 
-        val EXCLUDE_URLS = listOf("/auth")
+        val EXCLUDE_URLS = listOf("/auth(|.*)", "/health")
     }
 }

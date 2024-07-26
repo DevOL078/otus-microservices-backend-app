@@ -36,7 +36,7 @@ class SecurityConfig(
             .authorizeHttpRequests {
                 it
                     .requestMatchers("/health").permitAll()
-                    .requestMatchers("/auth").permitAll()
+                    .requestMatchers("/auth/**").permitAll()
                     .anyRequest().authenticated()
             }
             .sessionManagement {
