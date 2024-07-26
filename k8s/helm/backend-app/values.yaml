@@ -3,7 +3,7 @@ replicaCount: 2
 image:
   repository: dmoleynik0307/backend-app
   pullPolicy: IfNotPresent
-  tag: 2.0.3
+  tag: 2.0.5
 
 podLabels: { }
 
@@ -58,7 +58,7 @@ migrationJob:
     restartPolicy: Never
 
 configMap:
-  enabled: false
+  enabled: true
   props:
     db-url: "jdbc:postgresql://postgresql:5432/backend-app"
     db-username: "backend"
