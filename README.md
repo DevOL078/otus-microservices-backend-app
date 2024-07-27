@@ -52,6 +52,10 @@ docker push [image_migration_name]:[image_migration_tag]
 helm upgrade --install backend-app ./k8s/helm/backend-app
 ```
 
+### Docker-образы
+- [backend-app](https://hub.docker.com/repository/docker/dmoleynik0307/backend-app/general)
+- [backend-migration](https://hub.docker.com/repository/docker/dmoleynik0307/backend-migration/general)
+
 ### Helm-chart
 1. Deployment - [deployment.yaml](k8s%2Fhelm%2Fbackend-app%2Ftemplates%2Fdeployment.yaml)
 2. Service - [service.yaml](k8s%2Fhelm%2Fbackend-app%2Ftemplates%2Fservice.yaml)
