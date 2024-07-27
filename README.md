@@ -46,7 +46,8 @@ docker push [image_migration_name]:[image_migration_tag]
     ```
 
 3. Установка helm-чарта приложения
-(в файле [values.yaml](k8s%2Fhelm%2Fbackend-app%2Fvalues.yaml) необходимо прописать название образа и тег, которые будут использоваться при деплое)
+(в файле [values.yaml](k8s%2Fhelm%2Fbackend-app%2Fvalues.yaml) необходимо прописать название образа и тег, которые будут использоваться при деплое -
+и для сервиса, и для миграций)
 ```
 helm upgrade --install backend-app ./k8s/helm/backend-app
 ```
